@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alerta de Segurança</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#000;
+    overflow:hidden;
+}
+
+/* ===== TELA DE IMPACTO ===== */
+#telaInicial{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#000;
+    transition:opacity 1s ease;
+}
+
+#telaInicial img{
+    max-width:95%;
+    max-height:95%;
+}
+
+/* ===== TELA EDUCATIVA ===== */
+#telaEducativa{
+    display:none;
+    min-height:100vh;
+    background:linear-gradient(135deg,#1f1f1f,#3a3a3a);
+    color:#fff;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.card{
+    background:#ffffff;
+    color:#333;
+    padding:3rem;
+    border-radius:12px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.4);
+    max-width:720px;
+    animation:fadeIn 0.8s ease-in-out;
+}
+
+/* ===== Emoji e Título ===== */
+
+.emoji{
+    font-size:3rem;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.titulo{
+    color:#c62828;
+    text-align:center;
+    margin-bottom:25px;
+    font-size:1.8rem;
+}
+
+/* ===== Parágrafos ===== */
+
+.card p{
+    text-align:justify;
+    line-height:1.7;
+    margin-bottom:16px;
+}
+
+.blue{
+    color:#04398d;
+    font-weight:bold;
+}
+
+.center{
+    text-align:center;
+}
+
+/* ===== Alerta ===== */
+.alert{
+    background:#fff8e1;
+    color:#b71c1c;
+    padding:15px;
+    border-left:5px solid #f57f17;
+    border-radius:8px;
+    font-weight:bold;
+    margin:25px 0;
+    animation:pulse 1.8s infinite;
+}
+
+/* ===== Botão ===== */
+.btn{
+    display:block;
+    width:max-content;
+    margin:30px auto 10px auto;
+    padding:14px 28px;
+    background:#0056b3;
+    color:#fff;
+    text-decoration:none;
+    border-radius:6px;
+    font-weight:bold;
+    transition:0.3s;
+    text-align:center;
+}
+
+.btn:hover{
+    background:#003d7a;
+}
+
+/* ===== Logo e Rodapé ===== */
+.logo{
+    text-align:center;
+    margin-top:30px;
+}
+
+.logo img{
+    max-width:95px;
+    opacity:0.85;
+}
+
+.footer{
+    text-align:center;
+    margin-top:15px;
+    font-size:0.8rem;
+    color:#777;
+}
+
+/* animações */
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes pulse{
+    0%{opacity:1;}
+    50%{opacity:0.7;}
+    100%{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== TELA DE IMPACTO ===== -->
+<div id="telaInicial">
+    <img src="campanha/assets/img/susto.png" alt="Alerta de Segurança">
+</div>
+
+<!-- ===== TELA EDUCATIVA ===== -->
+<div id="telaEducativa">
+    <div class="card">
+
+        <h1 class="emoji">👀</h1>
+        <h2 class="titulo">A curiosidade falou mais alto?</h2>
+
+        <p>
+            Você acabou de abrir um link de simulação. Esta foi uma ação educativa para conscientização em 
+            <span class="blue">Privacidade de Dados & Segurança da Informação.</span>
+        </p>
+
+        <p>
+            No ambiente digital, links e QR Codes podem ser utilizados em 
+            <strong>Ataques de Phishing, Engenharia Social e Roubo de Dados.</strong>
+        </p>
+
+        <div class="alert">
+            ⚠️ CUIDADO! Sempre verifique a fonte antes de clicar ou escanear QR Codes.
+        </div>
+
+        <p>
+            Não se preocupe. Esta ação teve como objetivo divulgar o 
+            <strong>novo canal de comunicação</strong> para facilitar o exercício dos direitos dos titulares de dados, 
+            garantindo transparência e controle sobre suas informações pessoais, conforme previsto na LGPD.
+        </p>
+
+        <p class="blue center">
+            🕵️‍♀️ Conheça nosso canal exclusivo para o exercício dos seus direitos.
+        </p>
+
+        <a href="https://www.flex-am.com.br/direitos-do-titular" class="btn">
+            🛡️ Acesse o Canal Oficial
+        </a>
+
+        <div class="logo">
+            <img src="campanha/assets/img/logo-flex.png" alt="Flex Industries">
+        </div>
+
+        <div class="footer">
+            <strong>🔐 Campanha de Conscientização | Segurança da Informação & LGPD | Flex Industries</strong>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+// Exibe a imagem por 3 segundos e depois revela o conteúdo educativo
+setTimeout(function(){
+
+    document.getElementById("telaInicial").style.opacity = "0";
+
+    setTimeout(function(){
+        document.getElementById("telaInicial").style.display = "none";
+        document.getElementById("telaEducativa").style.display = "flex";
+        document.body.style.overflow = "auto";
+    },1000);
+
+},3000);
+
+</script>
+
+</body>
+</html>
