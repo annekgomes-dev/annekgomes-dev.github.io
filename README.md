@@ -44,12 +44,6 @@ Não realiza:
 
 Está alinhado às boas práticas de Governança e Segurança da Informação.
 
----
-
-## 👩🏻‍💻 Responsável
-
-Área de Governança / Segurança da Informação  
-Flex Industries
 
 ---
 
