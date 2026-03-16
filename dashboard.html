@@ -12,9 +12,8 @@
 <style>
 
 body{
-font-family:"Segoe UI";
-background:#0f172a;
-color:#fff;
+font-family:Segoe UI, Arial;
+background:#f4f6fa;
 margin:0;
 padding:40px;
 }
@@ -25,28 +24,33 @@ margin:auto;
 }
 
 .card{
-background:#1e293b;
+background:#fff;
 padding:30px;
 border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
 margin-bottom:30px;
-box-shadow:0 0 20px rgba(0,0,0,0.3);
-}
-
-.numero{
-font-size:4rem;
-color:#22c55e;
-text-align:center;
-margin:20px 0;
 }
 
 h1{
 text-align:center;
+color:#0b3d91;
+}
+
+.metric{
+font-size:40px;
+text-align:center;
+color:#b71c1c;
+font-weight:bold;
 }
 
 canvas{
-background:#fff;
-border-radius:8px;
-padding:10px;
+margin-top:20px;
+}
+
+.footer{
+text-align:center;
+margin-top:30px;
+color:#666;
 }
 
 </style>
@@ -57,50 +61,72 @@ padding:10px;
 
 <div class="container">
 
-<h1>📊 Dashboard da Campanha de Conscientização</h1>
+<h1>📊 Dashboard da Campanha LGPD</h1>
 
 <div class="card">
 
-<h2>Cliques na simulação</h2>
+<h2>Total de acessos ao link</h2>
 
-<div id="contador" class="numero">
-Carregando...
-</div>
+<div class="metric" id="contador">0</div>
 
 </div>
 
 <div class="card">
 
-<h2>Evolução da campanha</h2>
+<h2>Taxa de risco da campanha</h2>
 
 <canvas id="grafico"></canvas>
 
+</div>
+
+<div class="footer">
+Campanha de Conscientização | Segurança da Informação | Flex
 </div>
 
 </div>
 
 <script>
 
-fetch("https://api.countapi.xyz/get/flex-campanha/lgpd-campanha")
-.then(response => response.json())
-.then(data => {
+/* pegar contador salvo */
 
-let total = data.value;
+let cliques = localStorage.getItem("cliquesCampanha");
 
-document.getElementById("contador").innerText = total;
+if(!cliques){
+cliques = 0;
+}
+
+document.getElementById("contador").innerText = cliques;
+
+/* gráfico */
 
 const ctx = document.getElementById('grafico');
 
 new Chart(ctx, {
-type: 'bar',
+
+type: 'doughnut',
+
 data: {
-labels: ['Cliques na campanha'],
+
+labels: [
+
+"Usuários que clicaram",
+
+"Usuários que não clicaram"
+
+],
+
 datasets: [{
-label: 'Total de cliques',
-data: [total]
+
+data: [
+
+cliques,
+150 - cliques
+
+]
+
 }]
+
 }
-});
 
 });
 
