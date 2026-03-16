@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard da Campanha</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+font-family:"Segoe UI";
+background:#0f172a;
+color:#fff;
+margin:0;
+padding:40px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:#1e293b;
+padding:30px;
+border-radius:10px;
+margin-bottom:30px;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+}
+
+.numero{
+font-size:4rem;
+color:#22c55e;
+text-align:center;
+margin:20px 0;
+}
+
+h1{
+text-align:center;
+}
+
+canvas{
+background:#fff;
+border-radius:8px;
+padding:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📊 Dashboard da Campanha de Conscientização</h1>
+
+<div class="card">
+
+<h2>Cliques na simulação</h2>
+
+<div id="contador" class="numero">
+Carregando...
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Evolução da campanha</h2>
+
+<canvas id="grafico"></canvas>
+
+</div>
+
+</div>
+
+<script>
+
+fetch("https://api.countapi.xyz/get/flex-campanha/lgpd-campanha")
+.then(response => response.json())
+.then(data => {
+
+let total = data.value;
+
+document.getElementById("contador").innerText = total;
+
+const ctx = document.getElementById('grafico');
+
+new Chart(ctx, {
+type: 'bar',
+data: {
+labels: ['Cliques na campanha'],
+datasets: [{
+label: 'Total de cliques',
+data: [total]
+}]
+}
+});
+
+});
+
+</script>
+
+</body>
+</html>
