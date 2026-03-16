@@ -6,213 +6,277 @@
 <title>Alerta de Segurança</title>
 
 <style>
+
+/* ===== CONFIG GLOBAL ===== */
+
 body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:#000;
-    overflow:hidden;
+margin:0;
+font-family:"Segoe UI",Arial,sans-serif;
+background:#000;
+overflow:hidden;
 }
 
-/* ===== TELA DE IMPACTO ===== */
-#telaInicial{
-    position:fixed;
-    width:100%;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#000;
-    transition:opacity 1s ease;
+/* ===== TELA 1 - IMPACTO ===== */
+
+#telaImpacto{
+position:fixed;
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#000;
+animation:flash 0.4s 4;
 }
 
-#telaInicial img{
-    max-width:95%;
-    max-height:95%;
+#telaImpacto img{
+max-width:95%;
+max-height:95%;
+animation:zoom 5s ease-out forwards;
 }
 
-/* ===== TELA EDUCATIVA ===== */
+/* ===== TELA 2 - ALERTA ===== */
+
+#telaAlerta{
+display:none;
+position:fixed;
+width:100%;
+height:100vh;
+background:#111;
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:30px;
+}
+
+.alertBox{
+max-width:600px;
+}
+
+.alertBox h1{
+color:#ff3b3b;
+font-size:2rem;
+margin-bottom:20px;
+}
+
+.alertBox p{
+font-size:1.2rem;
+opacity:0.9;
+}
+
+/* ===== TELA 3 - EDUCATIVA ===== */
+
 #telaEducativa{
-    display:none;
-    min-height:100vh;
-    background:linear-gradient(135deg,#1f1f1f,#3a3a3a);
-    color:#fff;
-    justify-content:center;
-    align-items:center;
-    padding:40px 20px;
+display:none;
+min-height:100vh;
+background:linear-gradient(135deg,#2b2b2b,#1a1a1a);
+justify-content:center;
+align-items:center;
+padding:40px 20px;
 }
 
 .card{
-    background:#ffffff;
-    color:#333;
-    padding:3rem;
-    border-radius:12px;
-    box-shadow:0 15px 35px rgba(0,0,0,0.4);
-    max-width:720px;
-    animation:fadeIn 0.8s ease-in-out;
+background:#fff;
+color:#333;
+padding:3rem;
+border-radius:10px;
+box-shadow:0 15px 40px rgba(0,0,0,0.45);
+max-width:720px;
+animation:fadeIn 0.7s ease-in-out;
 }
 
-/* ===== Emoji e Título ===== */
+/* textos */
 
 .emoji{
-    font-size:3rem;
-    text-align:center;
-    margin-bottom:10px;
+font-size:2.5rem;
+text-align:center;
 }
 
 .titulo{
-    color:#c62828;
-    text-align:center;
-    margin-bottom:25px;
-    font-size:1.8rem;
+color:#b71c1c;
+text-align:center;
+margin-bottom:25px;
+font-size:1.8rem;
 }
 
-/* ===== Parágrafos ===== */
-
 .card p{
-    text-align:justify;
-    line-height:1.7;
-    margin-bottom:16px;
+text-align:justify;
+line-height:1.7;
 }
 
 .blue{
-    color:#04398d;
-    font-weight:bold;
+color:#0b3d91;
+font-weight:bold;
 }
 
 .center{
-    text-align:center;
+text-align:center;
 }
 
-/* ===== Alerta ===== */
+/* alerta */
+
 .alert{
-    background:#fff8e1;
-    color:#b71c1c;
-    padding:15px;
-    border-left:5px solid #f57f17;
-    border-radius:8px;
-    font-weight:bold;
-    margin:25px 0;
-    animation:pulse 1.8s infinite;
+background:#fff8e1;
+color:#b71c1c;
+padding:16px;
+border-left:6px solid #ff6f00;
+border-radius:8px;
+margin:25px 0;
+font-weight:bold;
 }
 
-/* ===== Botão ===== */
+/* botão */
+
 .btn{
-    display:block;
-    width:max-content;
-    margin:30px auto 10px auto;
-    padding:14px 28px;
-    background:#0056b3;
-    color:#fff;
-    text-decoration:none;
-    border-radius:6px;
-    font-weight:bold;
-    transition:0.3s;
-    text-align:center;
+display:block;
+margin:30px auto;
+width:max-content;
+padding:14px 30px;
+background:#0b3d91;
+color:#fff;
+text-decoration:none;
+border-radius:6px;
+font-weight:bold;
 }
 
 .btn:hover{
-    background:#003d7a;
+background:#072c66;
 }
 
-/* ===== Logo e Rodapé ===== */
+/* logo */
+
 .logo{
-    text-align:center;
-    margin-top:30px;
+text-align:center;
+margin-top:30px;
 }
 
 .logo img{
-    max-width:95px;
-    opacity:0.85;
-}
-
-.footer{
-    text-align:center;
-    margin-top:15px;
-    font-size:0.8rem;
-    color:#777;
+max-width:100px;
 }
 
 /* animações */
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
+
+@keyframes zoom{
+from{transform:scale(1);}
+to{transform:scale(1.2);}
 }
 
-@keyframes pulse{
-    0%{opacity:1;}
-    50%{opacity:0.7;}
-    100%{opacity:1;}
+@keyframes flash{
+0%{background:#000;}
+50%{background:#300;}
+100%{background:#000;}
 }
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* responsivo */
+
+@media(max-width:768px){
+
+.card{
+padding:2rem;
+}
+
+.titulo{
+font-size:1.5rem;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- ===== TELA DE IMPACTO ===== -->
-<div id="telaInicial">
-    <img src="campanha/assets/img/susto.png" alt="Alerta de Segurança">
+<!-- TELA 1 IMPACTO -->
+
+<div id="telaImpacto">
+<img src="assets/img/susto.png" alt="Alerta Link Suspeito">
 </div>
 
-<!-- ===== TELA EDUCATIVA ===== -->
+<!-- TELA 2 ALERTA -->
+
+<div id="telaAlerta">
+
+<div class="alertBox">
+
+<h1>⚠️ Atividade Suspeita Detectada</h1>
+
+<p>
+Um link potencialmente inseguro foi acessado!!
+</p>
+
+</div>
+
+</div>
+
+<!-- TELA 3 EDUCATIVA -->
+
 <div id="telaEducativa">
-    <div class="card">
 
-        <h1 class="emoji">👀</h1>
-        <h2 class="titulo">A curiosidade falou mais alto?</h2>
+<div class="card">
 
-        <p>
-            Você acabou de abrir um link de simulação. Esta foi uma ação educativa para conscientização em 
-            <span class="blue">Privacidade de Dados & Segurança da Informação.</span>
-        </p>
+<h1 class="emoji">👀</h1>
+<h2 class="titulo">A curiosidade falou mais alto?</h2>
 
-        <p>
-            No ambiente digital, links e QR Codes podem ser utilizados em 
-            <strong>Ataques de Phishing, Engenharia Social e Roubo de Dados.</strong>
-        </p>
+<p>
+Você acabou de abrir um <strong>link de simulação</strong>.  
+Esta foi uma ação educativa de conscientização.
+</p>
 
-        <div class="alert">
-            ⚠️ CUIDADO! Sempre verifique a fonte antes de clicar ou escanear QR Codes.
-        </div>
+<p>
+Links e QR Codes podem ser utilizados em ataques como
+<strong>Phishing, Engenharia Social e Roubo de Dados.</strong>
+</p>
 
-        <p>
-            Não se preocupe. Esta ação teve como objetivo divulgar o 
-            <strong>novo canal de comunicação</strong> para facilitar o exercício dos direitos dos titulares de dados, 
-            garantindo transparência e controle sobre suas informações pessoais, conforme previsto na LGPD.
-        </p>
+<div class="alert">
+⚠️ Antes de clicar em links ou escanear QR Codes, sempre verifique a origem.
+</div>
 
-        <p class="blue center">
-            🕵️‍♀️ Conheça nosso canal exclusivo para o exercício dos seus direitos.
-        </p>
+<p>
+Não se preocupe. Esta ação teve como objetivo conscientizar sobre os cuidados ao clicar em links ou escanear QR Codes e também divulgar o canal oficial para exercício dos direitos dos titulares de dados, conforme previsto na LGPD.
+</p>
 
-        <a href="https://www.flex-am.com.br/direitos-do-titular" class="btn">
-            🛡️ Acesse o Canal Oficial
-        </a>
+<p class="blue center">
+🕵️‍♀️ Conheça nosso canal exclusivo para o exercício dos seus direitos.
+</p>
 
-        <div class="logo">
-            <img src="campanha/assets/img/logo-flex.png" alt="Flex Industries">
-        </div>
+<a href="https://www.flex-am.com.br/direitos-do-titular" class="btn">
+🛡️ Acesse o Canal Oficial
+</a>
 
-        <div class="footer">
-            <strong>🔐 Campanha de Conscientização | Segurança da Informação & LGPD | Flex Industries</strong>
-        </div>
+<div class="logo">
+<img src="campanha/assets/img/logo-flex.png" alt="Flex Industries">
+</div>
 
-    </div>
+</div>
 </div>
 
 <script>
 
-// Exibe a imagem por 5 segundos e depois revela o conteúdo educativo
+/* tela impacto */
+
 setTimeout(function(){
 
-    document.getElementById("telaInicial").style.opacity = "0";
-
-    setTimeout(function(){
-        document.getElementById("telaInicial").style.display = "none";
-        document.getElementById("telaEducativa").style.display = "flex";
-        document.body.style.overflow = "auto";
-    },1000);
+document.getElementById("telaImpacto").style.display="none";
+document.getElementById("telaAlerta").style.display="flex";
 
 },5000);
+
+/* tela alerta */
+
+setTimeout(function(){
+
+document.getElementById("telaAlerta").style.display="none";
+document.getElementById("telaEducativa").style.display="flex";
+document.body.style.overflow="auto";
+
+},8000);
 
 </script>
 
