@@ -235,21 +235,39 @@ conforme previsto na <strong>Lei Geral de Proteção de Dados - LGPD.</strong>
 </div>
 </div>
 
-<script src="js/contador.js"></script>
-
 <script>
 
-/* troca de tela após 5 segundos */
+// 🔗 WEBHOOK
+const webhook = "https://webhook.site/a8aa1411-9e74-474a-9735-57526c9ffea6";
 
-setTimeout(function(){
+// 👤 USUÁRIO
+const params = new URLSearchParams(window.location.search);
+const user = params.get("user") || "anonimo";
 
-document.getElementById("telaImpacto").style.display="none";
-document.getElementById("telaEducativa").style.display="flex";
-document.body.style.overflow="auto";
+// 📡 ENVIO (com segurança)
+fetch(webhook, {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({
+usuario: user,
+data: new Date().toISOString(),
+userAgent: navigator.userAgent
+})
+}).catch(()=>{});
 
-},5000);
+// 1️⃣ Mostra susto por 5s
+setTimeout(() => {
+
+document.getElementById("telaImpacto").style.display = "none";
+document.getElementById("telaEducativa").style.display = "flex";
+
+}, 5000);
+
+// 2️⃣ Depois redireciona (opcional)
+setTimeout(() => {
+
+window.location.href = "https://google.com";
+
+}, 15000);
 
 </script>
-
-</body>
-</html>
