@@ -1,36 +1,24 @@
-// ID único por usuário (evita múltiplos cliques falsos)
-let userId = localStorage.getItem("userCampanha");
+const BIN_ID = "69b9afa1c3097a1dd533ffe5";
+const API_KEY = "$2a$10$zmmaQdVIqMxJEn8asEKOf.fk0Rtygcx.lrV45Lrw92kRUQccI88Y2";
 
-if (!userId) {
-    userId = "user-" + Math.random().toString(36).substring(2, 9);
-    localStorage.setItem("userCampanha", userId);
-}
+export async function registrarClique(){
 
-// verifica se já clicou
-let jaClicou = localStorage.getItem("jaClicou");
+  const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+    headers: { "X-Master-Key": API_KEY }
+  });
 
-if (!jaClicou) {
+  const data = await res.json();
+  let cliques = data.record.cliques || 0;
 
-    fetch("https://api.counterapi.dev/v1/flex-campanha/phishing/up")
-    .then(res => res.json())
-    .then(data => {
+  cliques++;
 
-        console.log("Total de cliques:", data.count);
-
-        // salva que esse usuário já foi contado
-        localStorage.setItem("jaClicou", "true");
-
-        // salva log local (base para relatório futuro)
-        let log = {
-            user: userId,
-            data: new Date().toISOString()
-        };
-
-        localStorage.setItem("logCampanha", JSON.stringify(log));
-
-    })
-    .catch(err => {
-        console.log("Erro contador:", err);
-    });
+  await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Master-Key": API_KEY
+    },
+    body: JSON.stringify({ cliques })
+  });
 
 }

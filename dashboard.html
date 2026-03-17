@@ -157,90 +157,79 @@ Analisando comportamento dos usuários...
 
 <script>
 
-/* CONFIGURAÇÃO */
+// 🔐 CONFIG JSONBIN
+const BIN_ID = "69b9afa1c3097a1dd533ffe5";
+const API_KEY = "$2a$10$zmmaQdVIqMxJEn8asEKOf.fk0Rtygcx.lrV45Lrw92kRUQccI88Y2";
 
-const totalUsuarios = 150; // ALTERE AQUI
+// 👥 TOTAL DE USUÁRIOS
+const totalUsuarios = 150;
 
+// 📊 FUNÇÃO PRINCIPAL
 async function carregarDashboard(){
 
 try{
 
-let response = await fetch("https://api.counterapi.dev/v1/flex-campanha/phishing");
+let response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+headers: { "X-Master-Key": API_KEY }
+});
 
 let data = await response.json();
 
-let cliques = data.count || 0;
+let cliques = data.record.cliques || 0;
 
-/* atualizar métricas */
-
+// MÉTRICAS
 document.getElementById("contador").innerText = cliques;
 
-/* calcular taxa */
-
+// TAXA
 let taxa = ((cliques / totalUsuarios) * 100).toFixed(1);
-
 document.getElementById("taxa").innerText = taxa + "%";
 
-/* gráfico */
-
+// GRÁFICO
 let naoClicaram = totalUsuarios - cliques;
 
 const ctx = document.getElementById("grafico");
 
-new Chart(ctx, {
-
-type: 'doughnut',
-
-data: {
-
-labels: [
-"Clicaram",
-"Não clicaram"
-],
-
-datasets: [{
-
-data: [
-cliques,
-naoClicaram
-]
-
-}]
-
+// evita duplicar gráfico
+if(window.graficoInstance){
+window.graficoInstance.destroy();
 }
 
+window.graficoInstance = new Chart(ctx, {
+type: 'doughnut',
+data: {
+labels: ["Clicaram","Não clicaram"],
+datasets: [{
+data: [cliques, naoClicaram]
+}]
+}
 });
 
-/* ALERTA INTELIGENTE */
-
+// ALERTA
 let alertaTexto = "";
 
 if(taxa < 10){
-
 alertaTexto = "🟢 Baixo risco: usuários com bom nível de conscientização.";
-
 }else if(taxa < 30){
-
 alertaTexto = "🟡 Atenção: há vulnerabilidade moderada a phishing.";
-
 }else{
-
 alertaTexto = "🔴 Alto risco: usuários suscetíveis a ataques de engenharia social.";
-
 }
 
 document.getElementById("alerta").innerText = alertaTexto;
 
 }catch(error){
 
-console.log(error);
-
+console.error(error);
 document.getElementById("contador").innerText = "Erro ao carregar";
 
 }
 
 }
 
+// 🔄 ATUALIZA AUTOMÁTICO
+setInterval(carregarDashboard, 5000);
+
+// 🚀 PRIMEIRA EXECUÇÃO
 carregarDashboard();
 
 </script>
